@@ -17,6 +17,7 @@ func main() {
 	var url string
 	flag.IntVar(&num,"num",100,"输入你每篇博客增加多少访问量")
 	flag.StringVar(&url,"url","https://blog.csdn.net/Xiang_lhh","输入你要刷的博客列表，例如https://blog.csdn.net/Xiang_lhh")
+	flag.Parse()
 	Csdn_views(num,url)
 }
 func Csdn_views(num int , url string){
@@ -25,10 +26,25 @@ func Csdn_views(num int , url string){
 	)
 	c.AllowURLRevisit=true//允许重复访问链接
 	c.OnHTML("div.navList-box", func(e *colly.HTMLElement) {//回调函数，查找每篇文章的子链接
+		//fmt.Println(*e)
 		e.ForEach("article.blog-list-box", func(i int, element *colly.HTMLElement) {
 			//遍历每个article标签
 			http_articleid:=element.ChildAttr("a","href")//得到标签属性
-			c.Visit(http_articleid)//递归访问子链接
+			err:=c.Visit(http_articleid)//递归访问子链接
+			if err!=nil{
+				fmt.Println("访问子链接出现错误",err)
+			}
+			time.Sleep(time.Second)//间隔一秒
+		})
+	})
+	c.OnHTML("div.article-list", func(e *colly.HTMLElement) {//回调函数，查找每篇文章的子链接
+		e.ForEach("div.article-item-box", func(i int, element *colly.HTMLElement) {
+			//遍历每个article标签
+			http_articleid:=element.ChildAttr("a","href")//得到标签属性
+			err:=c.Visit(http_articleid)//递归访问子链接
+			if err!=nil{
+				fmt.Println("访问子链接出现错误",err)
+			}
 			time.Sleep(time.Second)//间隔一秒
 		})
 	})
