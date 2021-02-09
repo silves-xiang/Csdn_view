@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/gocolly/colly"
 	"time"
@@ -12,7 +13,11 @@ type Desc struct {
 	ViewNum string
 }
 func main() {
-	Csdn_views(100,"https://blog.csdn.net/Xiang_lhh")
+	var num int
+	var url string
+	flag.IntVar(&num,"num",100,"输入你每篇博客增加多少访问量")
+	flag.StringVar(&url,"url","https://blog.csdn.net/Xiang_lhh","输入你要刷的博客列表，例如https://blog.csdn.net/Xiang_lhh")
+	Csdn_views(num,url)
 }
 func Csdn_views(num int , url string){
 	// Instantiate default collector
