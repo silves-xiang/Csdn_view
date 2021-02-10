@@ -9,3 +9,4 @@
         1.windows下使用main.exe文件 main.exe -num 100 -url https://blog.csdn.net/Xiang_lhh
         //解释num变量为每篇博客刷的访问量，url传入你的文章列表的地址，不要传单篇文章的地址。
         2.linux下使用linux_main文件 ./linux_main -num 100 -url https://blog.csdn.net/Xiang_lhh
+Csdn有新版页面和旧版页面，目前都支持，但是在运行程序的时候不要改变Csdn的新旧版本
