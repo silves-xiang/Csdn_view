@@ -5,7 +5,7 @@ name: Go
 
 on:
   schedule:
-    - cron : '01 14 * * *'
+    - cron : '07 14 * * *' 
 
 jobs:
 
